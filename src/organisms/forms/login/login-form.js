@@ -1,19 +1,27 @@
 import React from 'react';
 import './login-form.scss';
-import Button from '../../../atoms/button/button';
-import InputField from '../../../atoms/input-field/input-field';
+import Form from '../../../molecules/form/form';
 const LoginForm = (props) => {
     const {
         className,
         ...otherProps
     } = props
+    
+    const LoginFormInputs = [
+        {'type' : 'email', 'name':'Email','placeholder' : 'Email' },
+        {'type' : 'password','name':'Password', 'placeholder' : 'Password'}
+    ];
+    const getFormData = (formData) =>{
+        console.log('form login',formData);
+    }
     return (
-        <div {...otherProps}
-        className = {`forms card bg-dark text-white ${className}`}>
-            <InputField type='email' placeholder='Email'></InputField>
-            <InputField type='password' placeholder='Password'></InputField>
-            <Button type='submit' buttonText='Submit' className="btn btn-secondary" />
-        </div>
+        <>
+            <Form {...otherProps} 
+                formInputs = {LoginFormInputs} 
+                buttonText = 'Submit'
+                getFormData = {getFormData}
+            />
+        </>
     );
 };
 

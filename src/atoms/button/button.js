@@ -1,7 +1,11 @@
 import React from 'react';
 const Button = (props) => {
     const {
-        buttonText, id, className, type,
+        buttonText, 
+        id, 
+        className, 
+        type,
+        isValid,
         ...otherProps
     } = props
     return (
@@ -9,6 +13,7 @@ const Button = (props) => {
             type = {type}
             id = {id}
             className = {`button-component ${className}`}
+            disabled = {!isValid}
             {...otherProps}>
             {buttonText}
         </button>
@@ -17,7 +22,8 @@ const Button = (props) => {
 
 Button.defaultProps = {
     buttonText: "",
-    type: ""
+    type: "",
+    isValid: true
 };
 
 export default Button;

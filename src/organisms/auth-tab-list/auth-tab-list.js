@@ -12,7 +12,7 @@ const AuthTabList = ({authTabState, setAuthTabState}) => {
     };
     return (
         <div>
-            <ul className="auth-tab-list">
+            <ul className="auth-tab-list card bg-dark text-white">
                 {<Anchor
                     className={authTabState === 'LoginForm' ? 'active' : ''}
                     onClick={handleLoginLinkClick}
