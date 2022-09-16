@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../../atoms/button/button';
 import InputField from '../../atoms/input-field/input-field';
+import InputFieldWrapper from '../input-field-wrapper/input-field-wrapper';
 import './form.scss';
 const Form = (props) => {
     const {
@@ -33,7 +34,7 @@ for(const inp of formInputs){
         className = {`forms card bg-dark text-white ${className}`}>
             <form onSubmit={onSubmit}>
                 {formInputs.map(item => (
-                    item.name && <InputField 
+                    item.name && <InputFieldWrapper 
                         key={item.value}
                         type = {item.type}
                         placeholder = {item.placeholder}

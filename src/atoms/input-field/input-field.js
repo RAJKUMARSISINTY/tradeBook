@@ -10,20 +10,11 @@ const InputField = (props) => {
         ariaLabel,
         setFormInputState,
         setIsFormValid,
+        inputValue,
+        onChangeHandler,
         ...otherProps
     } = props
 
-    const [inputValue, setInputValue] = useState('');
-    const onChangeHandler = (e) => {
-        setInputValue(e.target.value);
-        setFormInputState((previousFormState)=>{
-            return {
-                ...previousFormState, 
-                [name] : {value : e.target.value,
-                isValid : !!e.target.value.trim()}
-            }
-        });
-    }
     return (
         <input
             type = {type}
