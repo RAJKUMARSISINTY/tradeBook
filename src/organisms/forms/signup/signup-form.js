@@ -7,13 +7,15 @@ const SignUpForm = (props) => {
         ...otherProps
     } = props
     const signUpFormInputs = [
-        {'type' : 'text', 'placeholder' : 'Name', 'name' : 'Name'},
+        {'type' : 'text', 'placeholder' : 'Name', 'name' : 'Name','pattern':/e/},
         {'type' : 'email', 'placeholder' : 'Email', 'name' : 'Email'},
         {'type' : 'password', 'placeholder' : 'Password', 'name' : 'Password'},
         {'type' : 'password', 'placeholder' : 'Confirm Password', 'name' : 'Confirm Password'}
     ];
     const getFormData = (formData) =>{
         console.log('form login',formData);
+        console.log('form login',formData.Email);
+        console.log('form login',formData.Email.value);
     }
     return (
         <>

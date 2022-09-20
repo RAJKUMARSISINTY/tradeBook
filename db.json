@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "password": "Abc@1234",
+      "id": 1
+    }
+  ],
+  "data":{
+    "user1": {
+      "labels":["food","travel"],
+      "transactions":[
+          {
+            "item": "food", 
+            "type":"debit"
+          },
+          {
+            "item": "travel", 
+            "type":"debit"
+          }
+        
+      ]
+    },
+    "user2": {
+      "labels":["ent","travel"],
+      "transactions":[
+          {
+            "item": "ent", 
+            "type":"debit"
+          },
+          {
+            "item": "travel", 
+            "type":"debit"
+          }
+        
+      ]
+    }
+  }
+}

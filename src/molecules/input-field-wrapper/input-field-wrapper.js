@@ -12,20 +12,38 @@ const InputFieldWrapper = (props) => {
         ariaLabel,
         setFormInputState,
         setIsFormValid,
+        pattern,
         ...otherProps
     } = props
     const [inputValue, setInputValue] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+    
+    const inputValidator = (e) => {
+        return (e.target.value)? 
+            (pattern)?
+                pattern.test(e.target.value)? '' : 'Pattern err' 
+            : ''
+        : 'Required';
+    }
+
     const onChangeHandler = (e) => {
+        e.preventDefault();
         setInputValue(e.target.value);
+        const errorMessage = inputValidator(e);
+        setErrorMsg(errorMessage);
         setFormInputState((previousFormState)=>{
             return {
                 ...previousFormState, 
                 [name] : {value : e.target.value,
-                isValid : !!e.target.value.trim()}
+                isValid : !errorMessage && !!e.target.value.trim()}
             }
         });
     }
 
+    const onBlurHandler = (e) => {
+        e.preventDefault();
+        inputValidator(e);
+    }
 
     return (
         <div {...otherProps}
@@ -36,8 +54,11 @@ const InputFieldWrapper = (props) => {
             placeholder = {placeholder}
             name = {name}
             inputValue = {inputValue}
+            pattern = {pattern}
             onChangeHandler = {onChangeHandler}
+            onBlurHandler = {onBlurHandler}
             />
+            {errorMsg && <Text className='text-danger error-text' content = {errorMsg}/>}
             
         </div>
     );

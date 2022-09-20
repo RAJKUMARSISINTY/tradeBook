@@ -12,6 +12,7 @@ const InputField = (props) => {
         setIsFormValid,
         inputValue,
         onChangeHandler,
+        onBlurHandler,
         ...otherProps
     } = props
 
@@ -22,6 +23,7 @@ const InputField = (props) => {
             placeholder = {placeholder}
             name = {name}
             value = {inputValue}
+            onBlur ={onBlurHandler}
             onChange = {onChangeHandler}
             className = {`inputfield-component form-control ${className}`}
             {...otherProps}>

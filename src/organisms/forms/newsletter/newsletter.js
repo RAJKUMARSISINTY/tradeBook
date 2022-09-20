@@ -12,6 +12,8 @@ const Newsletter = (props) => {
 
     const getFormData = (formData) =>{
         console.log('form news',formData);
+        console.log('form login',formData.Email);
+        console.log('form login',formData.Email.value);
     }
     return (
         <>

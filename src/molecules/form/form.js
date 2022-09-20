@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../atoms/button/button';
-import InputField from '../../atoms/input-field/input-field';
+import DropdownList from '../../atoms/dropdown/dropdown';
+import TextArea from '../../atoms/text-area/text-area';
 import InputFieldWrapper from '../input-field-wrapper/input-field-wrapper';
 import './form.scss';
 const Form = (props) => {
@@ -9,47 +10,85 @@ const Form = (props) => {
         formInputs,
         buttonText,
         getFormData,
+        clearBtnText,
         ...otherProps
     } = props
-const initialState = {};
-for(const inp of formInputs){
-    initialState[inp.name]={
-        value:'',
-        isValid: false
-    };
-}
+    const initialState = {};
+    for(const inp of formInputs){
+        initialState[inp.name]={
+            value:'',
+            isValid: false
+        };
+    }
+
     const [formInputState, setFormInputState] = useState(initialState);
-    const onSubmit = (e)=>{
-        e.preventDefault();
-        getFormData(formInputState);
+    const [validForm, setValidForm] = useState(false);
+    useEffect(()=>{
         let isValid = true;
         for(const i of Object.values(formInputState)){ 
             isValid = isValid && i.isValid;
         }
         console.log('valid:',isValid);
+        isValid?setValidForm(true):setValidForm(false);
+    },[formInputState]);
+
+    const onSubmit = (e)=>{
+        e.preventDefault();
+        const formDataJson = [];
+        for(const [key,value] of Object.entries(formInputState)){ 
+            formDataJson[key]=value.value;
+        }
+        getFormData(formDataJson);
     }
 
     return (
         <div {...otherProps}
         className = {`forms card bg-dark text-white ${className}`}>
             <form onSubmit={onSubmit}>
-                {formInputs.map(item => (
-                    item.name && <InputFieldWrapper 
-                        key={item.value}
-                        type = {item.type}
-                        placeholder = {item.placeholder}
-                        label = {item.label}
-                        className = {item.className}
-                        name = {item.name}
-                        id = {item.id}
-                        setFormInputState = {setFormInputState}
-                    />
-                ))}
-                <Button 
+                {formInputs && formInputs.map(input => {
+                    switch(input.type) {
+                        case 'dropdown': return (
+                            input.name && <DropdownList 
+                                key = {input.name}
+                                name = {input.name}
+                                placeholder = {input.placeholder}
+                                listOptions = {input.listOptions}
+                                setFormInputState = {setFormInputState}/>
+                        )
+
+                        case 'textarea': return (
+                            input.name && <TextArea 
+                                key = {input.name}
+                                name = {input.name}
+                                placeholder = {input.placeholder}
+                                setFormInputState = {setFormInputState}/>
+
+                        )
+                        default : return (
+                            input.name && <InputFieldWrapper 
+                                key={input.name}
+                                type = {input.type}
+                                placeholder = {input.placeholder}
+                                label = {input.label}
+                                className = {input.className}
+                                name = {input.name}
+                                id = {input.id}
+                                pattern = {input.pattern}
+                                setFormInputState = {setFormInputState}
+                            />
+                        )
+                    }})}
+                {buttonText && <Button 
                     type='submit' 
                     buttonText= {buttonText} 
                     className="btn btn-secondary"
-                />
+                    isValid = {validForm}
+                />}
+                {clearBtnText && <Button 
+                    type='button' 
+                    buttonText= {clearBtnText} 
+                    className="btn btn-secondary"
+                />}
             </form>
         </div>
     );
