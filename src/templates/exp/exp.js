@@ -9,11 +9,6 @@ const Exp = (props) => {
     const {
         ...otherProps
     } = props
-    const addtranction = (e) => {
-        e.preventDefault();
-        console.log((e.target));
-
-    }
     return (
         <div {...otherProps}>
             <div className="container-fluid mt-3">
